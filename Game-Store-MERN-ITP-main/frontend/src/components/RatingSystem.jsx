@@ -124,7 +124,7 @@ const RatingSystem = ({ gameId,userid, ratings, averageRating, onSubmitRating ,o
       {/* User Reviews */}
       <div className="mt-10">
         <h4 className="text-xl font-bold text-white mb-4">User Reviews:</h4>
-        <div className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ratings.map((rating, index) => (
             <div key={index} className={`p-6 rounded-lg `} style={{ backgroundColor: '#333333' }}>
               <div className="flex items-center mb-2">
