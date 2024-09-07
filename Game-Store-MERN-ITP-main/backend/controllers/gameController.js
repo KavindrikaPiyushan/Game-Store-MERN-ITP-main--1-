@@ -2,6 +2,8 @@
 import fs from "fs";
 import { Game } from "../models/game.js";
 import cloudinary from "../utils/cloudinary.js";
+import { GameStock } from "../models/gameStock.js";
+import { User } from "../models/user.js";
 
 
 //Add new game
@@ -91,6 +93,41 @@ export const getAllGames = async (req, res) => {
     });
   }
 };
+
+export const getGameNameById = async (req, res) => {
+  try {
+    const { gameId } = req.params;
+    const game = await GameStock.findById(gameId).populate('AssignedGame'); 
+    
+    if (game) {
+      const response = {
+        _id: game._id,
+        title: game.AssignedGame.title
+      };
+      console.log("Game Title:", response);
+      return res.status(200).json(response);
+    } else {
+      console.log("Game not found");
+      return res.status(404).json({
+        message: "Game not found."
+        
+      });
+    }
+
+  } catch (error) {
+    console.error("Error getting game name:", error);
+    return res.status(500).json({
+      message: "Error getting game name."
+    });
+  }
+};
+
+
+// export const getUserEmailbyId = async (req, res) => {
+//   try {
+
+
+
 
 //Get specific game details by id
 export const getSpecificGame = async (req, res) => {
