@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   Table,
@@ -40,8 +41,10 @@ const ReviewTable = () => {
       await axios.delete(`${API_BASE_URL}/ratings/game/${ratingId}`);
       getTableData();
       console.log("Rating deleted successfully");
+      toast.success("Rating deleted successfully");
     } catch (error) {
       console.error("Error deleting rating:", error);
+      toast.error("Error deleting rating");
     }
   };
   
@@ -82,11 +85,11 @@ const ReviewTable = () => {
   // },[gameNames]);
 
   return (
-    <div>
+    <div  >
       <Table
         isHeaderSticky
         aria-label="Example table with client-side pagination"
-        className="font-primaryRegular"
+        className="font-primaryRegular "
         bottomContent={
           <div className="flex w-full justify-center font-primaryRegular">
             {/* Pagination component can be added here */}
@@ -94,7 +97,10 @@ const ReviewTable = () => {
         }
         classNames={{
           wrapper: "min-h-[222px]",
+          
         }}
+
+        
       >
         <TableHeader>
           <TableColumn key="GAME">GAME</TableColumn>

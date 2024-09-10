@@ -97,15 +97,15 @@ export const getAllGames = async (req, res) => {
 export const getGameNameById = async (req, res) => {
   try {
     const { gameId } = req.params;
-    const game = await GameStock.findById(gameId).populate('AssignedGame'); 
+    const game = await Game.findById(gameId); 
     
     if (game) {
       const response = {
         _id: game._id,
-        title: game.AssignedGame.title
+        title: game.title
       };
-      console.log("Game Title:", response);
-      return res.status(200).json(response);
+      console.log("Game Title:", game);
+      return res.status(200).json(game);
     } else {
       console.log("Game not found");
       return res.status(404).json({
@@ -122,6 +122,39 @@ export const getGameNameById = async (req, res) => {
   }
 };
 
+export const getGameNameByAssignedGameId = async (req, res) => {
+  try {
+    const { assignedGameId } = req.params;
+    const gameStock = await GameStock.findOne({ "AssignedGame": assignedGameId }).populate("AssignedGame");
+
+
+
+    if (gameStock) {
+      // Prepare response with relevant data from AssignedGame
+      const response = {
+        _id: gameStock.AssignedGame._id,
+        title: gameStock.AssignedGame.title,
+        genre: gameStock.AssignedGame.Genre,
+        UnitPrice: gameStock.UnitPrice,
+        discount: gameStock.discount,
+        coverPhoto: gameStock.AssignedGame.coverPhoto,
+       };
+
+      console.log("Game found:", response);
+      return res.status(200).json(response);
+    } else {
+      console.log("Game not found");
+      return res.status(404).json({
+        message: "Game not found.",
+      });
+    }
+  } catch (error) {
+    console.error("Error getting game by AssignedGameId:", error);
+    return res.status(500).json({
+      message: "Error getting game by AssignedGameId."
+    });
+  }
+};
 
 // export const getUserEmailbyId = async (req, res) => {
 //   try {
