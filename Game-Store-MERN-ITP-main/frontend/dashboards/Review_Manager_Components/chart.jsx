@@ -16,7 +16,7 @@ const Chart = ({ data }) => {
       {
         label: 'Average Rating',
         data: data.map(item => parseFloat(item?.averageRating) || 0),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        backgroundColor: 'rgba(53, 162, 235, 0.8)',
         maxBarThickness: 80,
       },
      
@@ -29,26 +29,48 @@ const Chart = ({ data }) => {
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          color: "black", // Set legend text color to black
+        },
       },
       title: {
         display: true,
         text: 'Game Ratings Comparison',
+        color: "black", 
       },
     },
     scales: {
       y: {
         beginAtZero: true,
-        max: 5, 
+        max: 5,
         title: {
           display: true,
-          text: 'Price (Rs)',
+          text: "Average Rating",
+          color: "black", // Y-axis label color
         },
+        ticks: {
+          color: "black", // Y-axis tick color
+        },
+      },
+      x: {
+        ticks: {
+          color: "black", // X-axis tick color
+        },
+      },
+    },
+    animation: {
+      duration: 1000, // Animation duration in milliseconds
+      easing: 'easeInOutQuad', // Easing function for smooth animation
+      // Optional callback for completion
+      onComplete: () => {
+        console.log('Animation complete');
       },
     },
   };
 
+
   return<div style={{ height: '80vh', margin: 'auto',  }} className='bg-gray-100 rounded-lg'> 
-  <Bar data={chartData} options={options} className='w-[100%]' />
+  <Bar data={chartData} options={options} className='' />
 </div>
 };
 

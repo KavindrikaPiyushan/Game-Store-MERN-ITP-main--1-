@@ -43,7 +43,7 @@ const Reporting = ({ data }) => {
         label: "Average Rating",
         data: sortedData.map((item) => parseFloat(item?.averageRating) || 0),
         backgroundColor: "rgb(242, 17, 96, 0.8)", // Red theme for the bars
-        maxBarThickness: 80,
+        maxBarThickness: 60,
       },
     ],
   };
@@ -122,19 +122,19 @@ const Reporting = ({ data }) => {
   };
 
   return (
-    <div className=" bg-gray-100 rounded-lg shadow-xl ">
-      <div className="grid grid-cols-2 gap-4 p-6 printable ">
+    <div className="printable bg-gray-100 rounded-lg shadow-xl w-full ">
+      <div className="pageCover grid grid-cols-2 gap-4 p-6  ">
         {/* Chart Section */}
         <div
-          className="shadow-2xl rounded-lg bg-white p-4"
+          className="chartSection shadow-2xl rounded-lg bg-white p-4"
           style={{ height: "80vh", margin: "auto", width: "90%" }}
         >
-          <Bar data={chartData} options={options} className="w-[100%]" />
+          <Bar data={chartData} options={options} className="barchart" />
         </div>
 
         {/* Table Section */}
-        <div className="bg-white shadow-2xl rounded-lg p-4">
-          <table className="table-auto w-full shadow-md rounded-lg overflow-hidden border-none">
+        <div className="gameDetailsSec bg-white shadow-2xl rounded-lg p-4">
+          <table className="table-auto w-full  shadow-md rounded-lg overflow-hidden border-none">
             <thead className="" style={{ backgroundColor: "#17181c" }}>
               <tr className=" text-white shadow-sm">
                 <th className="px-4 py-2">Cover & Title</th>
@@ -179,13 +179,13 @@ const Reporting = ({ data }) => {
               })}
             </tbody>
           </table>
-          <div className="Genre">
-            <h1 className="text-2xl font-bold text-center mt-4">Top Genres</h1>
+          <div className="Genre ">
+            <h1 className="text-2xl font-bold text-center mt-4 text-black">Top Genres</h1>
             {sortedGameDetail.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className="flex items-center justify-between mt-2"
+                  className="genreContent flex items-center justify-between mt-2"
                 >
                   <span className="text-lg text-black">
                     {item?.genre?.map((genre, index) => (
