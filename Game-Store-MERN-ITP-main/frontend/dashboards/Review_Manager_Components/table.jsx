@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useMemo } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { SearchIcon } from "../../src/assets/icons/SearchIcon";
 import {
   Table,
   TableHeader,
@@ -9,6 +9,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Input,
   Button,
 } from "@nextui-org/react";
 import axios from "axios";
@@ -18,6 +19,8 @@ const API_BASE_URL = "http://localhost:8098"; // Define your API base URL
 const ReviewTable = () => {
   const [tableData, setTableData] = useState([]);
   // const [gameNames, setGameNames] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  
 
   const getTableData = async () => {
     try {
@@ -83,9 +86,38 @@ const ReviewTable = () => {
   // useEffect(()=>{
   //   console.log("Game names",gameNames);
   // },[gameNames]);
+  const filteredItems = useMemo(() => {
+    return tableData.filter((item) =>
+      item.game?.AssignedGame?.title
+        ?.toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    );
+  }, [tableData, searchQuery]);
+
+
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    
+  };
+ 
+  useEffect(()=>{
+   console.log('Table Data...',tableData);
+  },[tableData])
 
   return (
     <div  >
+    <Input
+        className="ml-2 font-primaryRegular w-48 sm:w-64"
+        placeholder="Search by GAME . . ."
+        startContent={<SearchIcon />}
+        value={searchQuery}
+        onChange={handleSearchChange}
+        onClear={handleClearSearch}
+      />
       <Table
         isHeaderSticky
         aria-label="Example table with client-side pagination"
@@ -112,7 +144,7 @@ const ReviewTable = () => {
           <TableColumn key="DELETE">DELETE</TableColumn>
         </TableHeader>
         <TableBody>
-          {tableData.map((item) => (
+          {filteredItems.map((item) => (
             <TableRow key={item._id}>
               <TableCell>{item?.game?.AssignedGame?.title || "N/A"}</TableCell>
               <TableCell>{item?.user.username || "N/A"}</TableCell>

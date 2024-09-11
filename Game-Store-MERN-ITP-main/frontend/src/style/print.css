@@ -12,7 +12,7 @@
   /* Layout adjustments for print */
   .pageCover {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr ;
     width: 0%;
     
     /* Ensure there's no gap between columns on print */
@@ -39,6 +39,7 @@
   }
   .Genre{
     margin-left: 30px !important;
+    
     
     
   }

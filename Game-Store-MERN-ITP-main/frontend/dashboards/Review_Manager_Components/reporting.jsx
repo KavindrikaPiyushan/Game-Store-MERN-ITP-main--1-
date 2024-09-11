@@ -123,7 +123,7 @@ const Reporting = ({ data }) => {
 
   return (
     <div className="printable bg-gray-100 rounded-lg shadow-xl w-full ">
-      <div className="pageCover grid grid-cols-2 gap-4 p-6  ">
+      <div className="pageCover grid grid-cols-2 gap-4 p-6   ">
         {/* Chart Section */}
         <div
           className="chartSection shadow-2xl rounded-lg bg-white p-4"
