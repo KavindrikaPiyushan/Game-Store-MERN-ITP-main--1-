@@ -6,6 +6,7 @@ import Chart from "./Review_Manager_Components/chart";
 import axios from "axios";
 import Reporting from "./Review_Manager_Components/reporting";
 import Loader from "../src/components/Loader/loader";
+import '../src/style/print.css';
 
 
 
@@ -151,7 +152,7 @@ const Review_manager = () => {
 
   
   return (
-    <div>
+    <div className="printable">
         <Header/>
         <div className="flex w-full flex-col">
       <div className="relative">
